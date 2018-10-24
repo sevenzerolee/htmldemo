@@ -1,0 +1,100 @@
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>轮播图效果</title>
+    <style>
+        body {
+            margin: 0; /* 清除边距 */
+        }
+        #banner {
+            position: relative;
+            margin: 20px auto 0 auto;
+            width: 590px;
+            height: 500px;
+            background-color:greenyellow;
+            overflow: hidden; /* 隐藏滚动条 */
+        }
+        /*
+        position 中的 relative 和 absolute 是相对父子组件而言的
+
+        */
+        #imglist {
+            position: absolute;
+            background-color: aliceblue;
+            width: 4720px;
+            height: 470px;
+        }
+        .item {
+            float: left; /* 向左浮动，必须写在第一行，影响UI渲染 */
+            width: 590px;
+            height: 470px;
+        }
+        /* #btnlist {
+            width: 100%;
+            height: 30px;
+            background-color: bisque;
+        } */
+    </style>
+</head>
+ 
+<body>
+    <div id="banner">
+        <div id="imglist">
+                <div class="item" style="background-image: url(./img/1.jpg)"></div>
+                <div class="item" style="background-image: url(./img/2.jpg)"></div>
+                <div class="item" style="background-image: url(./img/3.jpg)"></div>
+                <div class="item" style="background-image: url(./img/4.jpg)"></div>
+                <div class="item" style="background-image: url(./img/5.jpg)"></div>
+                <div class="item" style="background-image: url(./img/6.jpg)"></div>
+                <div class="item" style="background-image: url(./img/7.jpg)"></div>
+                <div class="item" style="background-image: url(./img/8.jpg)"></div>
+        </div>
+        <!-- <div id="imglist">
+            <div class="item"><img src="./img/1.jpg" alt="1" width="590" height="470"></div>
+            <div class="item"><img src="./img/2.jpg" alt="2" width="590" height="470"></div>
+            <div class="item"><img src="./img/3.jpg" alt="3" width="590" height="470"></div>
+            <div class="item"><img src="./img/4.jpg" alt="4" width="590" height="470"></div>
+            <div class="item"><img src="./img/5.jpg" alt="5" width="590" height="470"></div>
+            <div class="item"><img src="./img/6.jpg" alt="6" width="590" height="470"></div>
+            <div class="item"><img src="./img/7.jpg" alt="7" width="590" height="470"></div>
+            <div class="item"><img src="./img/8.jpg" alt="8" width="590" height="470"></div>
+        </div> -->
+        <!-- 
+            img 中的图像可以下载
+            background-image: url() 中的图像不可下载
+         -->
+        <div id="btnlist"></div>
+        <!--
+        <ul>
+            <li><img src="./img/1.jpg" /></li>
+            <li><img src="./img/2.jpg" /></li>
+            <li><img src="./img/3.jpg" /></li>
+            <li><img src="./img/4.jpg" /></li>
+            <li><img src="./img/5.jpg" /></li>
+            <li><img src="./img/6.jpg" /></li>
+            <li><img src="./img/7.jpg" /></li>
+            <li><img src="./img/8.jpg" /></li>
+        </ul>
+        -->
+    </div>
+    <script>
+        // setTimeout(); // 延迟执行
+
+        setInterval(() => {
+            var imglist = document.getElementById("imglist");
+            var left = imglist.style.left;
+            console.log(left);
+            if (!left) {
+                imglist.style.left = "-100%";
+            }
+            else if (left === "-100%") {
+                imglist.style.left = "-200%";
+            }
+
+        }, 2000); // 周期性执行
+    </script>
+</body>
+ 
+<script>
+</script>
+</html>
