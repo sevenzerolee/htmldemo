@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CSSRotate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script> -->
+    <style>
+        body {
+            margin: 0;
+        }
+        .content {
+            display: flex; /* code 1 */
+            justify-content: space-between; /* 有 code 1 才生效 */
+            align-items: center; /* 有 code 1 才生效 */
+            width: 960px;
+            height: 330px;
+            /* background-color: azure; */
+            margin: 20px auto 0 auto;
+        }
+        .item {
+            width: 300px;
+            height: 300px;
+            /* background-color: blanchedalmond; */
+            /* z-index: 500px; */
+            perspective: 960px;
+        }
+        .itemimg1 {
+            position: absolute; /* 从正常的文档流里飘起来 */
+            width: 300px;
+            height: 300px;
+            /* background-color: coral; */
+            background: url(./images/1.jpeg);
+            
+        }
+        .itemimg2 {
+            position: absolute; /* 从正常的文档流里飘起来 */
+            width: 300px;
+            height: 300px;
+            /* background-color: coral; */
+            background: url(./images/2.jpeg);
+            
+        }
+        .itemimg3 {
+            position: absolute; /* 从正常的文档流里飘起来 */
+            width: 300px;
+            height: 300px;
+            /* background-color: coral; */
+            background: url(./images/3.jpeg);
+            
+        }
+        .itemtext {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 20px;
+            width: 300px;
+            height: 300px;
+            background-color: rgba(0, 0, 0, 0.3);
+            transform: rotateY(90deg);
+        }
+        .item:hover .itemimg1 {
+            transform: rotateY(90deg);
+            transition: 1s;
+        }
+        .item:hover .itemimg2 {
+            transform: rotateY(90deg);
+            transition: 1s;
+        }
+        .item:hover .itemimg3 {
+            transform: rotateY(90deg);
+            transition: 1s;
+        }
+        .item:hover .itemtext {
+            transform: rotateY(0deg);
+            transition: 1s;
+        }
+
+        /*
+        文本的单行垂直居中 line-height 和 height 一样即可
+        文本的多行居中 
+        */
+        /* .item .itemimg:hover {
+            transform: rotateY(90deg);
+            transition: 1s;
+        }
+        .item .itemtext:hover {
+            transform: rotateY(90deg);
+            transition: 1s;
+        } */
+        
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="item">
+            <div class="itemimg1"></div>
+            <div class="itemtext">
+                <p>猫，属于猫科动物，分家猫、野猫，是全世界家庭中较为广泛的宠物。家猫的祖先据推测是起源于古埃及的沙漠猫，波斯的波斯猫，已经被人类驯化了3500年（但未像狗一样完全地被驯化）。</p>
+            </div>
+        </div>
+        <div class="item">
+            <div class="itemimg2"></div>
+            <div class="itemtext">
+                <p>一般的猫：头圆、颜面部短，前肢五指，后肢四趾，趾端具锐利而弯曲的爪，爪能伸缩。夜行性。</p>
+            </div>
+        </div>
+        <div class="item">
+            <div class="itemimg3"></div>
+            <div class="itemtext">
+                <p>以伏击的方式猎捕其他动物，大多能攀缘上树。猫的趾底有脂肪质肉垫，以免在行走时发出声响，捕猎时也不会惊跑鼠。行进时爪子处于收缩状态，防止爪被磨钝，在捕鼠和攀岩时会伸出来。</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
