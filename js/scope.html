@@ -1,0 +1,80 @@
+<!doctype <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+</head>
+<body>
+    <script>
+
+        // 1
+        /*
+        function foo() {
+            var a = b = 10;
+        }
+        foo();
+        */
+        // console.log(a, b); // ReferenceError: a is not defined
+
+
+        // 2
+        /*
+        function fo1() {
+            function fo2() {
+                var a = "fo2";
+                fo3();
+            }
+            fo2();
+        }
+        let a = "window";
+        function fo3() {
+            console.log(a);
+        }
+        */
+
+        // window.onload = fo1; // window
+
+        // 3
+        /*
+        var num = 10;
+        fun();
+        function fun() {
+            console.log(num); // undefined
+            var num = 20;
+        }
+        */
+
+        
+        // 4
+        /*
+        var a;
+        a();
+        function a() {
+            console.log(a); // function a()
+        }
+        */
+
+        /*
+        var a = 3;
+        a();
+        function a() {
+            console.log(a);// TypeError: a is not a function
+        }
+        */
+
+
+        // 5
+        var a = "window";
+        function foo() {
+            console.log(a); // undefined
+            var a = "foo";
+            console.log(a); // foo
+        }
+        foo();
+
+    </script>
+</body>
+</html>
