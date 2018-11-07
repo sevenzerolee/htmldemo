@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>CanvasDemo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+        }
+        /* margin 居中的方式：只对 block 元素起作用，行级元素无效 */
+        /* canvas 默认不是 block 元素 */
+        .container {
+            display: block;
+            background-color: ghostwhite;
+            /* width: 500px; */
+            /* height: 300px; */
+            /* margin: 50px auto 0 auto; */
+        }
+    </style>
+</head>
+<body>
+    <!-- canvas 默认宽高 300*150 -->
+    <canvas class="container"></canvas>
+    <script>
+        /* 
+         * dom 文档对象模型
+         * bom 浏览器对象模型
+         */
+        
+        // 获取 canvas 元素
+        var c = document.querySelector(".container");
+        
+        // 浏览器的宽和高
+        var w;
+        var h;
+        // 圆的半径
+        var r = 15;
+        // var w = window.innerWidth;
+        // var h = window.innerHeight;
+        // c.width = w;
+        // c.height = h;
+
+        // function setSize () {
+        //     w = window.innerWidth;
+        //     h = window.innerHeight;
+        //     c.width = w;
+        //     c.height = h;
+        // }
+        // setSize();
+
+        // window.onresize = function() {
+        //     console.log("call");
+        //     setSize();
+        // }
+
+        // 自动执行函数 ~~ 和 ()
+        ~~function() {
+            // console.log("第一次执行，然后是重绘");
+            w = window.innerWidth;
+            h = window.innerHeight;
+            c.width = w;
+            c.height = h;
+
+            window.onresize = arguments.callee;
+        }();
+
+        var ctx = c.getContext("2d");
+        // ctx.fillStyle = "#ff0000";
+        // ctx.arc(100, 50, 25, 0, 2*Math.PI);
+        // ctx.stroke();
+        // ctx.fill(); 
+
+        function rnd(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        var Cir = {};
+        Cir.property = {
+            init: function() {
+                console.log("init");
+            }
+        };
+        
+
+        function draw(num) {
+            for (let i=0; i<num; i++) {
+                ctx.beginPath();
+                let cir = new Cir();
+                cir.init();
+                // ctx.fillStyle = "#ff0000";
+                // ctx.arc(rnd(r, w - r), rnd(r, h - r), r, 0, 2*Math.PI);
+                // ctx.fill();
+            }
+        }
+
+
+
+        draw(10);
+
+    </script>
+</body>
+</html>
