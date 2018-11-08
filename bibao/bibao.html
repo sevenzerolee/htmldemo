@@ -72,7 +72,7 @@
         } */
 
         // 第四种方式 this 
-        for (var i=0; i<list.length; i++) {
+        /* for (var i=0; i<list.length; i++) {
             list[i].i = i;
             // console.log(list[i].index);
             list[i].onclick = function() {
@@ -87,7 +87,22 @@
                     list[i].style.backgroundColor = "";
                 }
             }
-        }
+        } */
+
+        // 第五种方式 事件委托
+        var parent = document.querySelector("ul");
+        parent.addEventListener("click", function(event) {
+            var target = event.target;
+            console.log(target);
+            if (target.style.backgroundColor == "") {
+                console.log("修改背景 " + target.innerText);
+                target.style.backgroundColor = "gray";
+            }
+            else if (target.style.backgroundColor == "gray") {
+                console.log("取消背景 " + target.innerText);
+                target.style.backgroundColor = "";
+            }
+        });
 
     </script>
 </body>
