@@ -56,7 +56,7 @@
         } */
 
         // 第三种方式 立即执行
-        for (var i=0; i<list.length; i++) {
+        /* for (var i=0; i<list.length; i++) {
             (function (i) {
                 list[i].onclick = function() {
                     if (list[i].style.backgroundColor == "") {
@@ -69,6 +69,24 @@
                     }
                 }
             })(i);
+        } */
+
+        // 第四种方式 this 
+        for (var i=0; i<list.length; i++) {
+            list[i].i = i;
+            // console.log(list[i].index);
+            list[i].onclick = function() {
+                console.log(this.i);
+                var i = this.i;
+                if (list[i].style.backgroundColor == "") {
+                    console.log("修改背景 " + i);
+                    list[i].style.backgroundColor = "gray";
+                }
+                else if (list[i].style.backgroundColor == "gray") {
+                    console.log("取消背景 " + i)
+                    list[i].style.backgroundColor = "";
+                }
+            }
         }
 
     </script>
