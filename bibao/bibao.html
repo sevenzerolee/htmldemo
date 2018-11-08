@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>闭包</title>
+    <style>
+        ul > li {
+            height: 36px;
+            list-style: none;
+            line-height: 36px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+    <script>
+        var list = document.querySelectorAll("ul > li");
+
+        // 第一种方式 let 
+        /* for (let i=0; i<list.length; i++) {
+            list[i].onclick = function() {
+                console.log(list[i].style.backgroundColor);
+                if (list[i].style.backgroundColor == "") {
+                    list[i].style.backgroundColor = "gray";
+                }
+                else if (list[i].style.backgroundColor == "gray") {
+                    list[i].style.backgroundColor = "";
+                }
+            }
+        } */
+
+        // 第二种方式 闭包
+        /* for (var i=0; i<list.length; i++) {
+            list[i].onclick = (function (i) {
+                console.log("外层执行" + i);
+                return function() {
+                    if (list[i].style.backgroundColor == "") {
+                        console.log("修改背景");
+                        list[i].style.backgroundColor = "gray";
+                    }
+                    else if (list[i].style.backgroundColor == "gray") {
+                        console.log("取消背景")
+                        list[i].style.backgroundColor = "";
+                    }
+                }
+            })(i);
+        } */
+
+        // 第三种方式 立即执行
+        for (var i=0; i<list.length; i++) {
+            (function (i) {
+                list[i].onclick = function() {
+                    if (list[i].style.backgroundColor == "") {
+                        console.log("修改背景 " + i);
+                        list[i].style.backgroundColor = "gray";
+                    }
+                    else if (list[i].style.backgroundColor == "gray") {
+                        console.log("取消背景 " + i)
+                        list[i].style.backgroundColor = "";
+                    }
+                }
+            })(i);
+        }
+
+    </script>
+</body>
+</html>
