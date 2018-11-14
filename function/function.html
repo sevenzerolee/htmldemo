@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>函数</title>
+</head>
+<body>
+    <script>
+        var length = 10;
+        function foo1() {
+            // 函数声明时绑定，所以 this == window
+            console.log(this.length); // 10
+        }
+        
+        // 箭头函数绑定的 this 不能修改，这里是 this == window
+        let foo2 = () => console.log(this.length); // 10
+
+        let o1 = {
+            length: 5,
+            fn: function(foo1) {
+                foo1();
+                arguments[0]();
+                // arguments 是个对象，是对象就有 this ，arguments[0]() 相当于调用第0个属性的方法，绑定的对象自然是 this == argument，而 argument 对象有 length 属性，是传入参数的个数
+                // console.log(arguments);
+            }
+        }
+
+        let o2 = {
+            length: 5,
+            fn: function() {
+                foo1();
+                arguments[0]();
+            }
+        }
+
+        // o1.fn(foo1, 1); // 5 5 error // 10 2 correct
+        o1.fn(foo2, 2); // 10 10
+        // o2.fn(foo1, 3); // 5 5 error // 10 2 correct
+        o2.fn(foo2, 4); // 10 10
+
+    </script>
+</body>
+</html>
