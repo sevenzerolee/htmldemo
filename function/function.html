@@ -17,6 +17,10 @@
         // 箭头函数绑定的 this 不能修改，这里是 this == window
         let foo2 = () => console.log(this.length); // 10
 
+        let foo3 = function() {
+            console.log(this.length);
+        }
+
         let o1 = {
             length: 5,
             fn: function(foo1) {
@@ -35,10 +39,14 @@
             }
         }
 
+
         // o1.fn(foo1, 1); // 5 5 error // 10 2 correct
-        o1.fn(foo2, 2); // 10 10
+        // o1.fn(foo2, 2); // 10 10
         // o2.fn(foo1, 3); // 5 5 error // 10 2 correct
-        o2.fn(foo2, 4); // 10 10
+        // o2.fn(foo2, 4); // 10 10
+
+        // o1.fn(foo3, 5); // 10 2
+        // o2.fn(foo3, 6); // 10 2
 
     </script>
 </body>
