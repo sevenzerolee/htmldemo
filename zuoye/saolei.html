@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>扫雷</title>
+    <style>
+        .content {
+            width: 378px;
+            height: 378px;
+            background-color: #ccccff;
+        }
+        .grid {
+            float: left;
+            width: 40px;
+            height: 40px;
+            background-color: #cccccc;
+            border: black solid 1px;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <!-- <div class="grid"></div> -->
+    </div>
+    <script>
+        let content = document.querySelector(".content");
+        let wLength = 9;
+        let hLength = wLength;
+        const len = wLength * hLength;
+        const MINES = 15;
+        let booms = {};
+
+        function draw() {
+            let temp = "";
+            for (let i=0; i<len; i++) {
+                temp = temp + `<div class="grid"></div>`;
+            }
+            content.innerHTML = temp;
+        }
+
+        function calPos(i) {
+            console.log("位置 " + i);
+            if ( i >= 0 && i < len ) {
+                //
+                if (booms[i] !== true) {
+                    // console.log(booms[i]);
+                    if (booms[i]) {
+                        booms[i]++;
+                    }
+                    else {
+                        booms[i] = 1;
+                    }
+                    console.log(booms[i]);
+                }
+            }
+            
+        }
+        function cal(i) {
+            let count = 0;
+            let leftTop = i - wLength - 1; // 左上
+            let topCenter = i - wLength; // 上中
+            let rightTop = i - wLength + 1; // 右上
+            let left = i - 1; // 左
+            let right = i + 1; // 右
+            let leftBottom = i + wLength - 1; // 左下
+            let bottomCenter = i + wLength; // 下中
+            let rightBottom = i + wLength + 1; // 右下
+            
+            if (i%wLength > 0) {
+                calPos(leftTop);
+            }
+            calPos(topCenter);
+            if (i%wLength < (wLength - 1) ) {
+                calPos(rightTop);
+            }
+            if (i%wLength > 0) {
+                calPos(left);
+            }
+            if (i%wLength < (wLength - 1) ) {
+                calPos(right);
+            }
+            if (i%wLength > 0) {
+                calPos(leftBottom);
+            }
+            calPos(bottomCenter);
+            if (i%wLength < (wLength - 1) ) {
+                calPos(rightBottom);
+            }
+            // if (booms[leftTop] !== true) {
+            //     // console.log(booms[leftTop]);
+            //     if (booms[leftTop]) {
+            //         booms[leftTop]++;
+            //     }
+            //     else {
+            //         booms[leftTop] = 1;
+            //     }
+            //     // console.log(booms[leftTop]);
+            // }
+            
+        }
+        function showMine(i) {
+            // console.log(i);
+            // divs[i].innerText = i;
+            if (booms[i] === true) {
+                // divs[i].innerText = "雷";
+                // 计算该位置周围的八个相邻位置的计数
+                cal(i);
+            }
+            else {
+                // divs[i].innerText = "0";
+            }
+        }
+
+        function displayMine(i) {
+            showAll(i);
+        }
+
+        function showAll(i) {
+            if (booms[i] === true) {
+                divs[i].innerText = "雷";
+            }
+            else if (typeof booms[i] === "number") {
+                // console.log(booms[i]);
+                divs[i].innerText = booms[i];
+            }
+            else {
+                divs[i].innerText = 0;
+            }
+        }
+
+        function addClickEvent() {
+            for (let i=0; i<len; i++) {
+                divs[i].onclick = function() {
+                    // showMine(i);
+                    displayMine(i);
+                    console.log("索引 " + i);
+                }
+                showMine(i);
+            }
+            /* for (let i=0; i<len; i++) {
+                showAll(i);
+            } */
+        }
+
+        // 整数
+        function rnd(min = 0, max = 81) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        function addMines() {
+            let index = 0;
+            while(index < MINES) {
+                let tmp = rnd(0, len);
+                if (!booms[tmp]) {
+                    booms[tmp] = true;
+                    index++;
+                }
+            }
+            // console.log(booms);
+        }
+
+        draw();
+        let divs = document.querySelectorAll(".grid");
+        addMines();
+        addClickEvent();
+
+    </script>
+</body>
+</html>
