@@ -55,7 +55,7 @@
                     else {
                         booms[i] = 1;
                     }
-                    console.log(booms[i]);
+                    // console.log("雷个数 " + booms[i]);
                 }
             }
             
@@ -71,24 +71,28 @@
             let bottomCenter = i + wLength; // 下中
             let rightBottom = i + wLength + 1; // 右下
             
-            if (i%wLength > 0) {
+            if ( (i > (wLength - 1)) && (i%wLength > 0) ) {
                 calPos(leftTop);
             }
-            calPos(topCenter);
-            if (i%wLength < (wLength - 1) ) {
+            if ( i > (wLength - 1) ) {
+                calPos(topCenter);
+            }
+            if ( (i > (wLength - 1)) && (i%wLength < (wLength - 1)) ) {
                 calPos(rightTop);
             }
-            if (i%wLength > 0) {
+            if ( i%wLength > 0 ) {
                 calPos(left);
             }
-            if (i%wLength < (wLength - 1) ) {
+            if ( i%wLength < (wLength - 1) ) {
                 calPos(right);
             }
-            if (i%wLength > 0) {
+            if ( (i < (len - wLength)) && (i%wLength > 0) ) {
                 calPos(leftBottom);
             }
-            calPos(bottomCenter);
-            if (i%wLength < (wLength - 1) ) {
+            if ( i < (len - wLength) ) {
+                calPos(bottomCenter);
+            }
+            if ( (i < (len - wLength)) && (i%wLength < (wLength - 1)) ) {
                 calPos(rightBottom);
             }
             // if (booms[leftTop] !== true) {
@@ -116,11 +120,11 @@
             }
         }
 
-        function displayMine(i) {
+        /* function displayMine(i) {
             showAll(i);
-        }
+        } */
 
-        function showAll(i) {
+        function displayMine(i) {
             if (booms[i] === true) {
                 divs[i].innerText = "雷";
             }
@@ -132,19 +136,21 @@
                 divs[i].innerText = 0;
             }
         }
-
+        
+        // 添加点击事件
         function addClickEvent() {
             for (let i=0; i<len; i++) {
                 divs[i].onclick = function() {
-                    // showMine(i);
-                    displayMine(i);
                     console.log("索引 " + i);
+                    displayMine(i);
                 }
                 showMine(i);
             }
-            /* for (let i=0; i<len; i++) {
+            /* 
+            for (let i=0; i<len; i++) {
                 showAll(i);
-            } */
+            } 
+            */
         }
 
         // 整数
@@ -152,6 +158,7 @@
             return Math.floor(Math.random() * (max - min)) + min;
         }
 
+        // 生成不重复的雷
         function addMines() {
             let index = 0;
             while(index < MINES) {
