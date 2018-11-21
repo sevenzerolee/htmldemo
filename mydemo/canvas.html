@@ -13,7 +13,7 @@
         /* canvas 默认不是 block 元素 */
         .container {
             display: block;
-            background-color: ghostwhite;
+            background-color: #ccc;
             /* width: 500px; */
             /* height: 300px; */
             /* margin: 50px auto 0 auto; */
@@ -36,7 +36,7 @@
         var w;
         var h;
         // 圆的半径
-        var r = 15;
+        // var r = 15;
         // var w = window.innerWidth;
         // var h = window.innerHeight;
         // c.width = w;
@@ -76,28 +76,73 @@
             return Math.floor(Math.random() * (max - min)) + min;
         }
 
-        var Cir = {};
-        Cir.property = {
+        let colors = ["#82A6F5", "#9FF048", "#2A5200", "#EAF048", "#F6D6FF"];
+        let colorsLen = colors.length;
+
+        // 对象封装
+        let Cir = function(){};
+
+        Cir.prototype = {
             init: function() {
-                console.log("init");
+                // console.log("init");
+                this.r = 10
+                this.x = rnd(this.r, w - this.r);
+                this.y = rnd(this.r, h - this.r);
+                this.color = colors[rnd(0, colorsLen)];
+                // console.log(ctx.fillStyle);
+                this.hx = rnd(-2, 2);
+                this.vy = rnd(-2, 2);
+            },
+            paint: function() {
+                // console.log("draw");
+                ctx.beginPath();
+                ctx.fillStyle = this.color;
+                ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
+                ctx.fill();
+            },
+            move: function() {
+                // 
+                if (this.x + this.r > w || this.x - this.r < 0) {
+                    this.hx = -this.hx;
+                }
+                if (this.y + this.r > h || this.y - this.r < 0) {
+                    this.vy = -this.vy;
+                }
+
+                this.x = this.x + this.hx;
+                this.y = this.y + this.vy;
+
+                ctx.beginPath();
+                ctx.fillStyle = this.color;
+                ctx.arc(this.x, this.y, this.r, 0, 2*Math.PI);
+                ctx.fill();
             }
         };
         
+        let cirs = [];
 
         function draw(num) {
             for (let i=0; i<num; i++) {
-                ctx.beginPath();
+                // ctx.beginPath();
                 let cir = new Cir();
                 cir.init();
-                // ctx.fillStyle = "#ff0000";
+                cir.paint();
+                // ctx.fillStyle = colors[rnd(0, 5)];
                 // ctx.arc(rnd(r, w - r), rnd(r, h - r), r, 0, 2*Math.PI);
                 // ctx.fill();
+                cirs.push(cir);
             }
         }
 
+        draw(100);
 
-
-        draw(10);
+        setInterval(function() {
+            // console.log("");
+            ctx.clearRect(0, 0, w, h);
+            for (let item of cirs) {
+                item.move();
+            }
+        }, 1000/60);
 
     </script>
 </body>
