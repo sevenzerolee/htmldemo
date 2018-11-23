@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>作用域</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
 </head>
@@ -11,32 +11,43 @@
     <script>
 
         // 1
-        /*
-        function foo() {
+        /* function foo() {
             var a = b = 10;
         }
         foo();
-        */
-        // console.log(a, b); // ReferenceError: a is not defined
-
-
-        // 2
+        console.log(a, b);  */
+        // ReferenceError: a is not defined
         /*
-        function fo1() {
+         * 虽然报错，但是要注意：b 是全局变量
+         * 在函数内部
+         * var a = 10 局部
+         * b = 10     全局
+         * 是不一样的
+         */
+
+
+
+
+
+        /////////////////////////////////////////////////////////////
+        // 2
+        
+        /* function fo1() {
             function fo2() {
                 var a = "fo2";
                 fo3();
             }
             fo2();
         }
+        
         let a = "window";
         function fo3() {
             console.log(a);
-        }
-        */
-
+        } */
+       
         // window.onload = fo1; // window
 
+        /////////////////////////////////////////////////////////////
         // 3
         /*
         var num = 10;
@@ -47,26 +58,29 @@
         }
         */
 
-        
-        // 4
-        /*
+        /////////////////////////////////////////////////////////////
+        // 4 没懂
+        /* 函数是一等公民，针对声明：同名的情况下，函数优先 */
         var a;
+        console.log(a); // function a()
         a();
         function a() {
             console.log(a); // function a()
         }
-        */
+       
 
-        /*
-        var a = 3;
-        a();
-        function a() {
-            console.log(a);// TypeError: a is not a function
+        
+        var ab = 33;
+        console.log(ab);// 3
+        ab();
+        function ab() {
+            console.log(ab);// TypeError: ab is not a function
         }
-        */
+       
 
-
+        /////////////////////////////////////////////////////////////
         // 5
+        /* 
         var a = "window";
         function foo() {
             console.log(a); // undefined
@@ -74,6 +88,7 @@
             console.log(a); // foo
         }
         foo();
+        */
 
     </script>
 </body>

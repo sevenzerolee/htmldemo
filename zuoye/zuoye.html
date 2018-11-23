@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        var a = {n: 1};
+        var b = a;
+        a.x = a = {n : 2};
+        console.log( a.x ); // undefined
+        console.log( b.x ); // object
+
+        let c = {n:1};
+        let d = c;
+        c = {n:2};
+        c.x = c;
+        console.log(c.x); // object
+        console.log(d.x); // undefined
+
+        var e = f = {};
+        console.log(e);
+        console.log(f);
+
+    </script>
+</body>
+</html>
+
+
+

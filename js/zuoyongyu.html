@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>作用域</title>
+</head>
+<body>
+    <script>
+        var name = "window";
+        console.log(name); // window
+        console.log(this.name); // window
+
+        var object = {
+            name: "my object",
+            getNameFunc: function() {
+                return function() {
+                    return this.name;
+                }
+            },
+            getNameFunc2: function() {
+                let that = this;
+                return function() {
+                    return that.name;
+                }
+            },
+            getName: function() {
+                return this.name;
+            }
+        };
+
+        console.log(object.getNameFunc()()); // window
+        console.log(object.getName()); // myobject
+
+        var obj = object.getName;
+        console.log(obj()); // window
+
+        var obj2 = object.getNameFunc();
+        console.log(obj2()); // window
+
+        console.log(object.getNameFunc2()()); // my object
+
+
+    </script>
+</body>
+</html>
