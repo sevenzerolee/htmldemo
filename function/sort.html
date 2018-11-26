@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>排序</title>
+</head>
+<body>
+    <script>
+
+        function rnd(min = 0, max = 100) {
+            return Math.floor(Math.random() * (max - min));
+        }
+
+        function genrateRandomArray(num) {
+            // 
+            let tmp = [];
+            for (let i=0; i<num; i++) {
+                tmp[i] = rnd(0, 100);
+            }
+
+            return tmp;
+        }
+
+        var a = genrateRandomArray(10);
+        console.log(a);
+
+        // 归并排序
+        // 归并排序是将一个集合分成两部分:part1和part2，
+        // 分别对part1和part2进行排序(使用递归法，直到子集合的大小为1，则停止将集合拆分，
+        // 此时因为子集合中只有一个元素，所以，这个子集合也就相当于已经拍好了顺序)，
+        // 最后将这两部分排好顺序的集合合并为一
+
+        function mergeSort(arr) {
+            if (arr.length === 1) {
+                return arr;
+            }
+            // console.log("========================")
+            let left = arr.slice(0, Math.floor(arr.length/2));
+            let right = arr.slice(Math.floor(arr.length/2), arr.length);
+            // console.log(left, right);
+
+            return merge(mergeSort(left), mergeSort(right));
+        }
+
+        // 合并数组
+        function merge(left, right) {
+            let i = 0;
+            let j = 0;
+            let leftLen = left.length;
+            let rightLen = right.length;
+            let tmp = [];
+            
+            while (i < leftLen && j < rightLen) {
+                if (left[i] < right[j]) {
+                    tmp.push(left[i]);
+                    i++;
+                }
+                else {
+                    tmp.push(right[j]);
+                    j++;
+                }
+            }
+            
+            while (i < leftLen) {
+                tmp.push(left[i]);
+                i++;
+            }
+
+            while (j < rightLen) {
+                tmp.push(right[j]);
+                j++;
+            }
+
+            return tmp;
+        }
+        
+        console.time();
+        let result = mergeSort(a);
+        console.timeEnd();
+        console.log(result);
+
+        // 快速排序
+        // 快速排序的原理：
+        // 快速排序在数组中选择一个称为主元(pivot)的元素将数组分成两个部分，
+        // 使得第一部分的所有元素小于或等于主元（pivot），
+        // 而第二部分的所有元素均大于主元（pivot）
+        // 然后对第一部分递归得应用快速排序算法，然后对第二部分递归得应用快速排序算法。
+
+        // Pivot的英文意思为中心点，所以，快速排序可以理解为找中心点，
+        // 然后根据中心点，将数组分成两部分，一部分小于或等于中心点，
+        // 另一部分大于中心点，然后按照此方法对两个部分分别执行，最后就将数组排好了顺序
+
+        function quickSort(arr) {
+            return quick(arr, 0, arr.length - 1);
+        }
+
+        function quick(arr, left, right) {
+            if (arr.length > 1) {
+                let index = partition(arr, left, right);
+                if (left < index - 1) {
+                    quick(arr, left, index - 1);
+                }
+                if (right > index) {
+                    quick(arr, index, right);
+                }
+            }
+        }
+
+        function partition(arr, left, right) {
+            let pivot = arr[Math.floor((left + right)/2)];
+            let i = left;
+            let j = right;
+            while (i <= j) {
+                while (arr[i] < pivot) {
+                    i++;
+                }
+                while (arr[j] > pivot) {
+                    j--;
+                }
+
+                // 位运算可以进行快速的交换
+                if (i <= j) {
+                    [arr[i], arr[j]] = [arr[j], arr[i]];
+                    i++;
+                    j--;
+                }
+            }
+
+            return i;
+        }
+        
+        console.time();
+        quickSort(a, 0, a.length - 1);
+        console.timeEnd();
+        console.log(a);
+
+    </script>
+</body>
+</html>
