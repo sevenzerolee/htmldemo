@@ -4,10 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>排序</title>
+    <title>排序动态演示</title>
+    <style>
+        .list {
+            position: absolute;
+            width: 800px;
+            height: 400px;
+            border: 2px green solid; 
+        }
+        .list > li {
+            position: absolute;
+            bottom: 0;
+            list-style-type: none;
+            width: 40px;
+            height: 400px;
+            text-align: center;
+            box-shadow: 0 0 10px #ccc inset;
+            transition: .6s;
+        }
+    </style>
 </head>
 <body>
+    <div>
+        <ul class="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+            <li>11</li>
+            <li>12</li>
+            <li>13</li>
+            <li>14</li>
+            <li>15</li>
+            <li>16</li>
+            <li>17</li>
+            <li>18</li>
+            <li>19</li>
+            <li>20</li>
+        </ul>
+    </div>
     <script>
+
+        let lis = document.querySelectorAll(".list > li");
+
+        lis.forEach((val, index) => {
+            val.style.left = index * 40 + "px";
+            val.style.height = (index + 1) * 15 + "px";
+            val.style.backgroundColor = `rgb(${rnd(0, 255)}, ${rnd(0, 255)}, ${rnd(0, 255)})`;
+        });
+
+        function render(order) {//渲染: 修改他的left值
+            lis.forEach( (i,j) => {
+                i.style.left = (i + 1)*40+"px"
+                i.style.height = (order[j] + 1) * 15 + "px";
+            });
+        }
+
+        function count(){
+            var k = 0
+            return function(){
+                return k++
+            }
+        }
+
+        let c = count();
+        c();
 
         function rnd(min = 0, max = 100) {
             return (Math.floor(Math.random() * (max - min)) + min);
@@ -15,21 +82,29 @@
 
         function genrateRandomArray(num) {
             // 
-            let tmp = [];
-            for (let i=0; i<num; i++) {
-                tmp[i] = rnd(0, 100);
-            }
+            // let tmp = [];
+            // for (let i=0; i<num; i++) {
+            //     tmp[i] = rnd(0, 100);
+            // }
+
+            let tmp = new Array(num);
+            tmp.fill(0);
+            tmp = tmp.map((val, index) => {
+                return index + 1;
+            });
 
             return tmp;
         }
 
-        var a = genrateRandomArray(10);
+        var a = genrateRandomArray(20);
         console.log(a);
+        // render(a);
 
         a.sort(() => Math.random() - 0.5); // 打乱顺序
         console.log(a);
         console.log("分割线");
-
+        
+        /////////////////////////////////////////////////////////////
         // 归并排序
         // 归并排序是将一个集合分成两部分:part1和part2，
         // 分别对part1和part2进行排序(使用递归法，直到子集合的大小为1，则停止将集合拆分，
@@ -84,7 +159,8 @@
         let result = mergeSort(a);
         console.timeEnd();
         console.log(result);
-
+        
+        /////////////////////////////////////////////////////////////
         // 快速排序
         // 快速排序的原理：
         // 快速排序在数组中选择一个称为主元(pivot)的元素将数组分成两个部分，
@@ -112,6 +188,10 @@
             }
         }
 
+        function swap(arr, i,j){
+            [arr[i], arr[j]]=[arr[j], arr[i]]
+        }
+
         function partition(arr, left, right) {
             let pivot = arr[Math.floor((left + right)/2)];
             let i = left;
@@ -126,22 +206,74 @@
 
                 // 位运算可以进行快速的交换
                 if (i <= j) {
+                    // console.log("out ", i, j);
                     [arr[i], arr[j]] = [arr[j], arr[i]];
+                    // setTimeout(function(a, b, k) {
+                    //     console.log("in  " + k, a, b);
+                    //     [k[a], k[b]] = [k[b], k[a]];
+                    //     render(arr);
+                    // }, c()*500, i, j, arr);
                     i++;
                     j--;
                 }
+
+                // setTimeout(function() {
+                //     if (i <= j) {
+                //         [arr[i], arr[j]] = [arr[j], arr[i]];
+                //         render(arr);
+                //         i++;
+                //         j--;
+                //     }
+                // }, c()*600);
+
             }
 
             return i;
         }
 
         a.sort(() => Math.random() - 0.5); // 打乱顺序
-        console.log(a);
+        console.log("## " + a);
+        render(a);
         
         console.time();
         quickSort(a, 0, a.length - 1);
         console.timeEnd();
-        console.log(a);
+        console.log("## " + a);
+
+        /////////////////////////////////////////////////////////////
+        function bubbleSort(arr){
+
+            function swap(i,j){
+                [arr[i], arr[j]]=[arr[j], arr[i]];
+            }
+
+            for(let j = 0, l = arr.length; j<l;j++){
+                for (let i = 0; i < l - 1; i++) {
+                    // if (arr[i] > arr[i + 1]) {
+                    //     swap(i, i+1);
+                    //     // setTimeout(function(){
+                    //     //     swap(i, i+1);//交换
+                    //     //     render(arr);
+                    //     // }, c()*200);
+                    // }
+
+                    setTimeout(function() {
+                        if (arr[i] > arr[i+1]) {
+                            swap(i, i+1);
+                            render(arr);
+                        }
+                    }, c()*600);
+                }
+            }
+        }
+        
+        console.log("分割线");
+
+        // a.sort(() => Math.random() - 0.5); // 打乱顺序
+        // render(a);
+        // console.log(a);
+        // bubbleSort(a);
+        // console.log(a);
 
     </script>
 </body>
