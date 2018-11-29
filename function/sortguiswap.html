@@ -97,12 +97,11 @@
         }
 
         var a = genrateRandomArray(20);
-        console.log(a);
+        console.log("生成的数组 " + a);
         // render(a);
 
         a.sort(() => Math.random() - 0.5); // 打乱顺序
-        console.log(a);
-        console.log("分割线");
+        console.log("打乱顺序后的数组 " + a);
         
         /////////////////////////////////////////////////////////////
         // 归并排序
@@ -155,10 +154,10 @@
             return tmp;
         }
         
-        console.time();
-        let result = mergeSort(a);
-        console.timeEnd();
-        console.log(result);
+        // console.time();
+        // let result = mergeSort(a);
+        // console.timeEnd();
+        // console.log(result);
         
         /////////////////////////////////////////////////////////////
         // 快速排序
@@ -208,11 +207,13 @@
                 if (i <= j) {
                     // console.log("out ", i, j);
                     [arr[i], arr[j]] = [arr[j], arr[i]];
-                    // setTimeout(function(a, b, k) {
-                    //     console.log("in  " + k, a, b);
-                    //     [k[a], k[b]] = [k[b], k[a]];
-                    //     render(arr);
-                    // }, c()*500, i, j, arr);
+
+                    setTimeout(function(a, b) {
+                        // console.log("in  " + aBak, a, b);
+                        [aBak[a], aBak[b]] = [aBak[b], aBak[a]];
+                        render(aBak);
+                    }, c()*500, i, j);
+                    
                     i++;
                     j--;
                 }
@@ -232,13 +233,17 @@
         }
 
         a.sort(() => Math.random() - 0.5); // 打乱顺序
-        console.log("## " + a);
+        console.log("快排之前 " + a);
+        // 快排的图形化展现，重点在于准备一个一模样的数组，排序仍然是对原数组操作的，很快就会执行完成，但图形化的操作是对备份数组的延时操作
+        let aBak = [...a]; // 数组的备份和 a 一模一样
+        console.log("备份数组 " + aBak);
         render(a);
-        
+
         console.time();
         quickSort(a, 0, a.length - 1);
         console.timeEnd();
-        console.log("## " + a);
+
+        console.log("快排之后 " + a);
 
         /////////////////////////////////////////////////////////////
         function bubbleSort(arr){
@@ -267,7 +272,6 @@
             }
         }
         
-        console.log("分割线");
 
         // a.sort(() => Math.random() - 0.5); // 打乱顺序
         // render(a);
