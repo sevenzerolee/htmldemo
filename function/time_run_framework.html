@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>时间运动</title>
+    <style>
+        /* body {
+            margin: 0;
+        } */
+
+        @keyframes run {
+            from {
+                left: 20px;
+                top: 20px;
+            }
+            to {
+                left: 120px;
+                top: 120px;
+            }
+        }
+        .content {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            width: 200px;
+            height: 200px;
+            background-color: #ccc;
+            /* animation: run 2s; */
+        }
+    </style>
+</head>
+<body>
+    <div class="content"></div>
+    <script>
+        // 
+        let content = document.querySelector(".content");
+        console.log(content.getBoundingClientRect());
+        
+        let c = getComputedStyle(content);
+        // 
+        let left = c.left;
+        console.log(left, c["left"]);
+        let val = parseInt(left); // 解析数值
+        console.log(val);
+        console.log(left.indexOf(val), ("" + val).length);
+        let unit = c.left.substring(("" + val).length); // 解析数值的单位
+        console.log(unit);
+
+        // for (let i in c) {
+        //     console.log(i, c[i]);
+        // }
+
+        // for (let i of c) {
+        //     console.log(i, c[i]);
+        // }
+
+        setTimeout(function() {
+            // 
+            // content.style.left = "120px";
+        }, 2000);
+    </script>
+</body>
+</html>
