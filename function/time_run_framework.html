@@ -10,7 +10,7 @@
             margin: 0;
         } */
 
-        @keyframes run {
+        /* @keyframes run {
             from {
                 left: 20px;
                 top: 20px;
@@ -19,13 +19,13 @@
                 left: 120px;
                 top: 120px;
             }
-        }
+        } */
         .content {
             position: absolute;
             left: 20px;
             top: 20px;
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
             background-color: #ccc;
             /* animation: run 2s; */
         }
@@ -36,30 +36,113 @@
     <script>
         // 
         let content = document.querySelector(".content");
-        console.log(content.getBoundingClientRect());
+        // console.log(content.getBoundingClientRect());
         
-        let c = getComputedStyle(content);
-        // 
-        let left = c.left;
-        console.log(left, c["left"]);
-        let val = parseInt(left); // 解析数值
-        console.log(val);
-        console.log(left.indexOf(val), ("" + val).length);
-        let unit = c.left.substring(("" + val).length); // 解析数值的单位
-        console.log(unit);
-
-        // for (let i in c) {
-        //     console.log(i, c[i]);
-        // }
-
-        // for (let i of c) {
-        //     console.log(i, c[i]);
-        // }
-
-        setTimeout(function() {
+        /*
+         * 匀速处理
+         * el 元素
+         * json 目标位置
+         * time 时间
+         * callback 执行完成的回调函数
+         */
+        function move(el, json, time, callback) {
             // 
-            // content.style.left = "120px";
-        }, 2000);
+            // console.log(json);
+            let t0 = new Date();
+
+            let startValue = {};
+            let speedValue = {};
+
+            let startState = getComputedStyle(el);
+            for (let key in json) {
+                // console.log(key, json[key]);
+                startValue[key] = parseInt(startState[key]);
+                speedValue[key] = (json[key] - startValue[key])/time;
+            }
+            // console.log(startValue, speedValue);
+            
+            let id;
+            function run() {
+                let t2 = new Date() - t0;
+                for (let key in json) {
+                    el.style[key] = (startValue[key] + speedValue[key]*t2) + "px";
+                }
+                if (t2 >= time) {
+                    if (callback) {
+                        callback();
+                    }
+                    cancelAnimationFrame(id);
+                }
+                else {
+                    id = requestAnimationFrame(run);
+                    // console.log(id);
+                }
+            }
+            run();
+        }
+
+        // move(content,{left: 320, top: 120, width: 400}, 2000, () => { console.log("done") });
+
+        /////////////////////////////////////////////////////////////
+
+        /*
+         * el 元素
+         * originJson 起始位置
+         * targetJson 目标位置
+         * time 时间
+         * callback 执行完成的回调函数
+         */
+        function move2(el, originJson, targetJson, time, callback) {
+            // 
+            let t0 = new Date();
+            let speedValue = calculator(originJson, targetJson, (src, dest)=>(dest - src)/time );
+            // console.log(speedValue);
+
+            let id;
+            function run() {
+                let t2 = new Date() - t0;
+                let currentJson = calculator(originJson, speedValue, (src, dest)=>(src + dest*t2));
+                // console.log(currentJson);
+                if (t2 >= time) {
+                    currentJson = calculator(originJson, speedValue, (src, dest)=>dest);
+                    if (callback) {
+                        callback();
+                    }
+                    cancelAnimationFrame(id);
+                }
+                else {
+                    id = requestAnimationFrame(run);
+                    // console.log(id);
+                }
+                render(el, currentJson);
+            }
+            run();
+        }
+
+        function calculator(originJson, targetJson, callback) {
+            let speedValue = {};
+            for (let key in originJson) {
+                speedValue[key] = callback(originJson[key], targetJson[key]);
+            }
+            return speedValue;
+        }
+
+        function render(el, currentJson) {
+            let c = getComputedStyle(el);
+            for (let key in currentJson) {
+                // el.style[key] = currentJson[key] + "px";
+                el.style[key] = c[key].replace(parseInt(c[key]), currentJson[key]);
+            }
+        }
+
+        move2(
+            content,
+            {left: 20, top: 20, width: 150},
+            {left: 320, top: 120, width: 400}, 
+            2000, 
+            () => { console.log("done") }
+        );
+
     </script>
 </body>
 </html>
