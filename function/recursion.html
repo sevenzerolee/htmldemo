@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>递归</title>
+</head>
+<body>
+    <script>
+
+        // 递归太深就算不出来了
+        function fibonaci(n) {
+            if (n == 1 || n == 2) {
+                return 1;
+            }
+            return fibonaci(n-1) + fibonaci(n-2);
+        }
+
+        function fibonaci2(n, a1 = 1, a2 = 1) {
+            if (n == 1 || n == 2) {
+                return 1;
+            }
+            return fibonaci2(n-1, )
+        }
+
+        var arr = new Array(7).fill(0);
+        arr = arr.map((i, j) => (j+1));
+
+        arr.forEach(i => console.log(`第${i}项`, fibonaci(i)));
+
+
+    </script>
+</body>
+</html>
