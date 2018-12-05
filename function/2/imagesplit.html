@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        li {
+            list-style-type: none;
+        }
+        .container {
+            position: relative;
+            margin: 50px auto;
+            width: 450px;
+            height: 450px;
+            background-color:bisque;
+            /* background: url(./images/10006.jpeg); */
+        }
+        .container > li {
+            position: absolute;
+            /* line-height:  */
+            /* text-align:  */
+        }
+        .content {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            width: 150px;
+            height: 150px;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="content"></div> -->
+    <div class="container"></div>
+
+    <script src="./js/timeanimation.js"></script>
+    <script>
+        let content = document.querySelector(".content");
+        let box = document.querySelector(".container");
+        let row = 10;
+        let column = 15;
+        let lis;
+        
+        // 计算图片位置
+        function init() {
+            // 
+            let len = row * column;
+            let html = "";
+            for (let i=0; i<len; i++) {
+                // html = html + `<li>${i}</li>`
+                html = html + `<li></li>`
+            }
+            box.innerHTML = html;
+
+            lis = document.querySelectorAll(".container > li");
+            lis.forEach((i, j) => {
+                // ((j-j%row)/row)
+                i.style.width = 450/row + "px";
+                i.style.height = 450/column + "px";
+                i.style.left = (j%row) * (450/row) + "px";
+                // i.style.top = Math.floor(j/row) * (450/column) + "px";
+                i.style.top = ((j-j%row)/row) * (450/column) + "px";
+                i.style.lineHeight = 450/column + "px";
+                i.style.textAlign = "center";
+                // i.style.backgroundColor = "#ccc";
+                let left = (j%row) * (450/row);
+                let top = ((j-j%row)/row) * (450/column)
+                // let top = Math.floor(j/row) * (450/column);
+                i.style.background = `url(./images/10006.jpeg) ${-left}px ${-top}px`;
+
+                // 
+                i.start = {
+                    left: (j%row) * (450/row),
+                    top: Math.floor(j/row) * (450/column),
+                    opacity: 1,
+                    transform: {
+                        rotateX: 0,
+                        rotateY: 0,
+                        rotateZ: 0
+                    }
+                };
+            });
+
+        }
+
+        init();
+
+        function next() {
+            // 
+            lis.forEach((i) => {
+                // 
+                i.target = {
+                    left: (Math.random() - 0.3) * 800,
+                    top: (Math.random() - 0.3) * 800,
+                    opacity: 0,
+                    transform: {
+                        rotateX: Math.random() * 270,
+                        rotateY: Math.random() * 270,
+                        rotateZ: Math.random() * 270
+                    }
+                };
+
+                move(i, 
+                    i.start, 
+                    i.target, 
+                    1000*(Math.random()+1), 
+                    function() {
+                        // 
+                        move(i, i.target, i.start, 1500);
+                    }
+                );
+            });
+        }
+
+        next();
+
+
+
+        // move(
+        //     content,
+        //     {left: 20, top: 20, transform: {rotateX: 0, rotateY: 0, rotateZ: 0}, opacity: 1},
+        //     {left: 120, top: 120, transform: {rotateX: 60, rotateY: 60, rotateZ: 60}, opacity: 0}, 
+        //     1500, 
+        //     () => { console.log("执行完成") }
+        // );
+
+    </script>
+</body>
+</html>

@@ -113,10 +113,10 @@
                 let t2 = new Date() - t0;
                 // console.log(t2);
                 let currentJson = calculator(originJson, speedValue, (src, dest)=>(src + dest*t2));
-                // console.log(currentJson);
+                console.log(currentJson);
                 if (t2 > time) {
                     currentJson = calculator(originJson, targetJson, (src, dest)=>dest);
-                    // console.log(currentJson);
+                    console.log(currentJson);
                     if (callback) {
                         callback();
                     }
@@ -148,15 +148,23 @@
                 }
                 else {
                     // el.style[key] = currentJson[key] + "px";
-                    el.style[key] = c[key].replace(parseInt(c[key]), currentJson[key]);
+                    el.style[key] = c[key].replace(parseFloat(c[key]), currentJson[key]);
                 }
             }
         }
 
+        // move(
+        //     content,
+        //     {left: 20, top: 20, transform: {scale: 1.0, rotateX: 0, rotateY: 0, rotateZ: 0}, opacity: 1},
+        //     {left: 120, top: 120, transform: {scale: 0.5, rotateX: 60, rotateY: 60, rotateZ: 60}, opacity: 0}, 
+        //     2000, 
+        //     () => { console.log("执行完成") }
+        // );
+
         move(
             content,
-            {left: 20, top: 20, transform: {scale: 1.0, rotateX: 0, rotateY: 0, rotateZ: 0}},
-            {left: 120, top: 120, transform: {scale: 0.5, rotateX: 60, rotateY: 60, rotateZ: 60}}, 
+            {opacity: 1},
+            {opacity: 0}, 
             2000, 
             () => { console.log("执行完成") }
         );

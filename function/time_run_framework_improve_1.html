@@ -121,7 +121,7 @@
             let c = getComputedStyle(el);
             for (let key in currentJson) {
                 // el.style[key] = currentJson[key] + "px";
-                el.style[key] = c[key].replace(parseInt(c[key]), currentJson[key]);
+                el.style[key] = c[key].replace(parseFloat(c[key]), currentJson[key]);
             }
         }
 
