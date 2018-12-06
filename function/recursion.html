@@ -34,6 +34,13 @@
             return fibonaci2(n-1, b, a + b);
         }
 
+        function fibonaci4(n, a1 = 1, a2 = 1) {
+            if (n == 1) {
+                return a2;
+            }
+            return fibonaci4(n-1, a1 + a2, a1);
+        }
+
         // 循环
         function fibonaci3(n) {
             if (n == 1 || n == 2) {
@@ -51,13 +58,14 @@
             return sum;
         }
 
-        var arr = new Array(10).fill(0);
+        var arr = new Array(100).fill(0);
         arr = arr.map((i, j) => (j+1));
 
         // arr.forEach(i => console.log(`第${i}项`, fibonaci(i)));
 
         // arr.forEach(i => console.log(`第${i}项`, fibonaci2(i)));
-        arr.forEach(i => console.log(`第${i}项`, fibonaci3(i)));
+        // arr.forEach(i => console.log(`第${i}项`, fibonaci3(i)));
+        arr.forEach(i => console.log(`第${i}项`, fibonaci4(i)));
 
 
 
