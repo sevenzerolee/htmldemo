@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>交换两个数</title>
+</head>
+<body>
+    <script>
+        let a = 9;
+        let b = 14;
+        console.log(`a = ${a}, b = ${b}`);
+
+        function fn(m, n) {
+            console.log(`m = ${m}, n = ${n}`);
+            let tmp = m;
+            m = n;
+            n = tmp;
+            console.log(`m = ${m}, n = ${n}`);
+        }
+        
+        // fn(a, b);
+        // console.log(`a = ${a}, b = ${b}`);
+
+        function fn2(m, n) {
+            console.log(`m = ${m}, n = ${n}`);
+            m = m ^ n;
+            n = m ^ n;
+            m = n ^ m;
+            console.log(`m = ${m}, n = ${n}`);
+        }
+
+        // fn2(a, b);
+        // console.log(`a = ${a}, b = ${b}`);
+
+        function fn3(m, n) {
+            console.log(`m = ${m}, n = ${n}`);
+            [n, m] = [m, n];
+            console.log(`m = ${m}, n = ${n}`);
+        }
+
+        // fn3(a, b);
+        // console.log(`a = ${a}, b = ${b}`);
+
+        function fn4(m, n) {
+            console.log(`m = ${m}, n = ${n}`);
+            let tmp = [n, m];
+            m = tmp[0];
+            n = tmp[1];
+            console.log(`m = ${m}, n = ${n}`);
+        }
+
+        fn4(a, b);
+        console.log(`a = ${a}, b = ${b}`);
+
+    </script>
+</body>
+</html>
