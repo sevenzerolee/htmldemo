@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>box-shadow</title>
+    <style>
+        body {
+            margin: 20px;
+        }
+        div {
+            width: 500px;
+            height: 50px;
+            text-align: center;
+            font-weight: 900;
+            line-height: 50px;
+            border: 2px solid;
+        }
+        .test {
+            background-color: greenyellow;
+            box-shadow: 20px 10px 10px blue;
+        }
+        .test2 {
+            background-color: greenyellow;
+            box-shadow: 20px 10px 0 5px blue;
+        }
+        .test3 {
+            background-color: greenyellow;
+            box-shadow: 20px 10px 10px 5px blue;
+        }
+        .test4 {
+            background-color: greenyellow;
+            box-shadow: 20px 10px blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="test">
+        offset-x offset-y blur-radius color
+    </div>
+    <br/><br/><br/>
+
+    <div class="test2">
+        offset-x offset-y blur-radius=0 spread-radius color
+    </div>
+    <br/><br/><br/>
+
+    <div class="test3">
+        offset-x offset-y blur-radius spread-radius color
+    </div>
+    <br/><br/><br/>
+
+    <div class="test4">
+        offset-x offset-y color
+    </div>
+</body>
+</html>
