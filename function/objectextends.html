@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Object Extends</title>
+</head>
+<body>
+    <script>
+
+        class Animal {
+
+            constructor(name) {
+                this.name = name;
+            }
+
+            eat() {
+                console.log(this.name + " eat food .")
+            }
+
+            static breathe() {
+                console.log(`Any animal needs breathe .`);
+            }
+
+        }
+        
+        // Animal 原型
+        console.dir(Animal.__proto__, Animal.prototype);
+        let animal = new Animal("animal");
+
+        class Cat extends Animal {
+
+            constructor(name) {
+                super(name);
+            }
+
+            walk() {
+                console.log(`${this.name} walk in night .`)
+            }
+
+        }
+
+        // Cat 原型
+        console.dir(Cat.__proto__, Cat.prototype);
+        let cat = new Cat("HuaMao");
+
+
+
+    </script>
+</body>
+</html>
