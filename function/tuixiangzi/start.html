@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TuiXiangZi</title>
+    <style>
+        body {
+            background-color: #ccc;
+        }
+        #main {
+            position: relative;
+            margin: 20px auto;
+            width: 560px;
+            height: 560px;
+            background-color: #fff;
+            /* background: url(./images/land.png) center/70px 70px; */
+        }
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+
+    <script src="./map/mapdata.js"></script>
+    <script src="./js/game.js"></script>
+    <script src="./js/map.js"></script>
+    <script src="./js/block.js"></script>
+    <script src="./js/wall.js"></script>
+    <script src="./js/person.js"></script>
+
+    <script>
+        
+        let game = new Game("#main");
+        console.log(game);
+    
+    </script>
+</body>
+</html>
+
+
