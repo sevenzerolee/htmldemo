@@ -12,42 +12,69 @@ class Map {
     }
 
     createWall() {
-        this.wall = [];
+        this.wallList = [];
         this.json.wall.forEach(element => {
-            this.wall.push(new Wall(element));
+            this.wallList.push(new Wall(element));
         });
 
         // console.log(this.wall);
     }
 
     createBox() {
-        this.box = [];
+        this.boxList = [];
         this.json.box.forEach(element => {
-            this.box.push(new Box(element));
+            this.boxList.push(new Box(element));
         });
     }
 
     createTarget() {
-        this.target = [];
+        this.targetList = [];
         this.json.target.forEach(element => {
-            this.target.push(new Target(element));
+            this.targetList.push(new Target(element));
         });
     }
 
     addTo(target) {
         this.person.addTo(target);
 
-        this.wall.forEach(v => {
+        this.wallList.forEach(v => {
             v.addTo(target);
         });
 
-        this.box.forEach(v => {
+        this.boxList.forEach(v => {
             v.addTo(target);
         });
 
-        this.target.forEach(v => {
+        this.targetList.forEach(v => {
             v.addTo(target);
         });
+    }
+
+    hasBlock(type, position) {
+        return type.some(item => item.position.x === position.x && item.position.y === position.y);
+    }
+
+    move(dp) {
+        // 记录 person 当前位置
+        let personCurPos = this.person.position;
+        // 推的位置
+        let pushPlace = {
+            x: personCurPos.x + dp.x,
+            y: personCurPos.y + dp.y
+        };
+        // 箱子将要到达的位置
+        let boxTarget = {
+            x: pushPlace.x + dp.x,
+            y: pushPlace.y + dp.y
+        };
+
+        // 是否遇到墙
+        if (this.hasBlock(this.wallList, pushPlace)) {
+            console.log("撞墙了");
+            return ;
+        }
+
+        this.person.move(dp);
     }
 
 }

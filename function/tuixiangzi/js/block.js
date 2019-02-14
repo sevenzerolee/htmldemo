@@ -35,7 +35,7 @@ class Block {
         setTimeout(() => {
             this.canMove = true;
         }, 300);
-        console.log("移动位置", dp);
+        // console.log("移动位置", dp);
         this.position.x = this.position.x + dp.x;
         this.position.y = this.position.y + dp.y;
         this.setPosition(this.position);
