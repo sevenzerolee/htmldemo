@@ -8,6 +8,9 @@ class Block {
             height: "70px",
             backgroundColor: "gray"
         };
+
+        // 用于节流，不然事件太多，反应不过来
+        this.canMove = true;
     }
 
     setPosition(position) {
@@ -23,5 +26,19 @@ class Block {
         target.appendChild(this.el);
     }
 
+    move(dp) {
+        // 用于节流，不然事件太多，反应不过来
+        if (!this.canMove) {
+            return;
+        }
+        this.canMove = false;
+        setTimeout(() => {
+            this.canMove = true;
+        }, 300);
+        console.log("移动位置", dp);
+        this.position.x = this.position.x + dp.x;
+        this.position.y = this.position.y + dp.y;
+        this.setPosition(this.position);
+    }
 
 }

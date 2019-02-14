@@ -1,4 +1,4 @@
-class Wall extends Block {
+class Box extends Block {
 
     constructor(position) {
         super();
@@ -6,7 +6,7 @@ class Wall extends Block {
         this.position = position || {x: 0, y: 0};
 
         Object.assign(this.el.style, this.privateStyle);
-        this.el.style.background = 'url(./images/wall.png) center/70px 70px';
+        this.el.style.background = 'url(./images/box.png) center/70px 70px';
         this.setPosition();
     }
 
