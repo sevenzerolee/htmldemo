@@ -10,9 +10,9 @@ class Map {
 
         this.createTarget();
 
-        this.history = new History();
+        // this.history = new History();
         // 记录第一个位置
-        this.history.addRecord(JSON.parse(JSON.stringify(this.json)));
+        // this.history.addRecord(JSON.parse(JSON.stringify(this.json)));
 
         this.win = false;
     }
@@ -121,8 +121,18 @@ class Map {
         this.checkwin();
 
         // 记录第一个位置
-        this.history.addRecord(JSON.parse(JSON.stringify(this.json)));
+        // this.history.addRecord(JSON.parse(JSON.stringify(this.json)));
 
+    }
+
+    render(json) {
+        // 引用类型的简单处理方式
+        this.json = JSON.parse(JSON.stringify(json));
+        
+        this.person.setPosition(this.json.person);
+        this.boxList.forEach((v, i) => {
+            v.setPosition(this.json.box[i]);
+        });
     }
 
 }

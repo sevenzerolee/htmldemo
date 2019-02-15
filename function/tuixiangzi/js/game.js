@@ -30,6 +30,7 @@ class Game {
             if (dp) {
                 // this.person.move(dp);
                 this.map.move(dp);
+                this.history.addRecord(this.map);
 
                 // 判断是否完成，并切换场景
                 if (this.map.win) {
@@ -45,11 +46,15 @@ class Game {
         window.addEventListener("keydown", (e) => {
             console.log(e);
             // ctrl+z
-            e.preventDefault();
-            if (e.ctrlKey && e.code) {
-                
+            e.preventDefault(); // 这里可能会禁用其他快捷键
+            if (e.ctrlKey && e.code === "KeyZ") {
+                this.history.ctrlZ();
+
+                let json = this.history.getHistory();
+                this.map.render(json);
             }
         });
+
     }
 
     // 选择关卡
@@ -66,6 +71,11 @@ class Game {
         this.person = this.map.person;
 
         this.register();
+
+        // 记录历史操作
+        this.history = new History();
+        // 记录初始状态
+        this.history.addRecord(this.map);
     }
 
     // 通关显示
