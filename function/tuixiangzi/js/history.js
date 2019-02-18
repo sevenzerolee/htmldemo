@@ -6,7 +6,7 @@ class History {
     }
 
     addRecord(map) {
-        // 引用数据类型的修改
+        // 引用数据类型的修改，需要深拷贝
         let json = JSON.parse(JSON.stringify(map.json));
         this.historyList.push(json);
 
