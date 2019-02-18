@@ -19,6 +19,7 @@ class Game {
         // this.register();
 
         this.stage2(0);
+        // this.stage4();
         // this.stage3();
     }
 
@@ -85,6 +86,54 @@ class Game {
         this.gamearea.style.textAlign = 'center';
         this.gamearea.style.fontSize = '28px';
         this.gamearea.style.lineHeight = '560px';
+    }
+
+    // 编辑地图
+    stage4() {
+        this.editMap();
+    }
+
+    editMap() {
+        this.editType = "wall";
+        this.mapJson = {
+            name: "设计地图",
+            person: {x: 2, y: 3},
+            wall: [],
+            box: [],
+            target: []
+        };
+
+        this.map = new Map(this.mapJson);
+        this.map.addTo(this.gamearea);
+
+        this.gamearea.addEventListener("click", (e) => {
+            if (e.target.id !== "main") {
+                console.log("不在范围内");
+                return ;
+            }
+            console.log(e.offsetX + ", " + e.offsetY);
+            let position = {
+                x: Math.floor(e.offsetX/70),
+                y: Math.floor(e.offsetY/70)
+            };
+            console.log(position);
+            this.mapJson[this.editType].push(position);
+            this.map = new Map(this.mapJson);
+            this.map.addTo(this.gamearea);
+
+        });
+    }
+
+    modifyMapType(type) {
+        this.editType = type;
+        console.log(this.editType);
+    }
+
+    // 地图数据转为 json 输出
+    saveMap() {
+        console.log(this.mapJson);
+        // 转为 json
+        console.log((JSON.stringify(this.mapJson)));
     }
 
 }

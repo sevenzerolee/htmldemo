@@ -17,19 +17,21 @@ class Person extends Block {
 
     // 重写父类中的方法
     move(dp) {
-        this.changeDirectoion(dp);
-        this.walk();
-
+        
         // 用于节流，不然事件太多，反应不过来
         if (!this.canMove) {
             return;
         }
+
+        this.changeDirectoion(dp);
+        this.walk();
+        
         this.canMove = false;
         setTimeout(() => {
-            console.log("还原");
             this.el.style.background = `url(./images/player_${this.direction}.png) center/70px 70px`;
             this.canMove = true;
         }, 310);
+
         // console.log("移动位置", dp);
         this.position.x = this.position.x + dp.x;
         this.position.y = this.position.y + dp.y;
@@ -63,12 +65,11 @@ class Person extends Block {
             "bottom": ["bottom_walk1", "bottom_walk2"]
         };
         // players[this.direction][steps%2]
-        let playlist = ["bottom_walk1", "bottom_walk2"];
+        // let playlist = ["bottom_walk1", "bottom_walk2"];
         // playlist[steps%2]
         let steps = 0;
 
         function run() {
-            console.log("执行动画");
             steps++;
             this.el.style.background = `url(./images/player_${players[this.direction][steps%2]}.png) center/70px 70px`;
             if (new Date() - timeStart < 290) {
