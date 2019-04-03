@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        let obj = {
+            a: 2
+        };
+
+        let obj2 = Object.create(obj);
+
+        console.log(obj.a, obj2.a); // 2 2
+        console.log(obj.hasOwnProperty("a")); // true
+        console.log(obj2.hasOwnProperty("a")); // false
+        
+        obj2.a++;
+
+        console.log(obj.a, obj2.a); // 2 3
+        console.log(obj.hasOwnProperty("a")); // true
+        console.log(obj2.hasOwnProperty("a")); // true
+
+        // //////////////////////////////////////////////////////////
+        console.log();
+        console.log(parseInt(3, 8)); // 3
+        console.log(parseInt(3, 2)); // NaN
+        console.log(parseInt(3, 1)); // NaN
+        console.log(parseInt(3, 0)); // 3
+        console.log(parseInt(3, 10)); // 3
+
+        // //////////////////////////////////////////////////////////
+        console.log();
+
+        function test (){
+            var n = 4399;
+            function add(){
+                n ++;
+                console.log(n)
+            };
+            return {
+                n,
+                add
+            }
+        }
+        var result1 = test(); 
+        var result2 = test(); 
+        result1.add(); // 4400
+        result1.add(); // 4401
+        console.log(result1.n); //4399
+        result2.add(); // 4400
+
+        // //////////////////////////////////////////////////////////
+
+        var key1 = { key: "a" };
+        var key2 = { key: "b" };
+        var arr = [];
+        arr[key1] = "2";
+        arr[key2] = "3";
+        console.log(arr[key1], arr[key2]); // 3 3
+
+        // //////////////////////////////////////////////////////////
+        
+        // console.log(1);
+
+        // setTimeout(() => {
+        //     console.log(2);
+        // }, 0);
+
+        // Promise.resolve().then(() => {
+        //     console.log(3);
+        // }).then(() => {
+        //     console.log(4);
+        // });
+
+        // console.log(5);
+
+        // 输出顺序是 1 5 3 4 2
+
+        // //////////////////////////////////////////////////////////        
+
+        function inc() {
+            var n = 100;
+            return function() {
+                n++;
+                console.log(n);
+            }
+        }
+
+        var fn = inc();
+        fn(); // 101
+        fn(); // 102
+
+        var fn2 = inc();
+        fn2(); // 101
+
+        // //////////////////////////////////////////////////////////  
+        
+        
+
+        function getSingle() {
+            var instance;
+            return function() {
+                if (instance) {
+                    instance = {};
+                }
+                return instance;
+            }
+        }
+
+        var s1 = getSelection();
+        var s2 = getSelection();
+        console.log(s1 === s2); // true
+
+        // //////////////////////////////////////////////////////////  
+
+        // 递归 
+        function fabonaci(num) {
+            if (num === 0 || num === 1) {
+                return 1;
+            }
+
+            return fabonaci(num-1) + fabonaci(num - 2);
+        }
+
+        // 尾递归
+        function fabonaci2(num, sum = 1, prefix = 0) {
+            if (num === 0) {
+                return sum;
+            }
+            return fabonaci2(num-1, sum+prefix, sum);
+        }
+
+        function f_test_all(n) {
+            for (var i=0; i<n; i++) {
+                var sum = fabonaci(i);
+                var sum2 = fabonaci2(i);
+                console.log(i + " => " + sum + ", " + sum2);
+            }
+        }
+
+        var n = 50;
+
+        // f_test_all(n);
+
+        function f_test(n) {
+            for (var i=0; i<n; i++) {
+                var sum = fabonaci(i);
+                console.log(i + " => " + sum);
+            }
+        }
+
+        function f_test2(n) {
+            for (var i=0; i<n; i++) {
+                var sum2 = fabonaci2(i);
+                console.log(i + " => " + sum2);
+            }
+        }
+
+        // f_test(n);
+        // f_test2(n * 10);
+
+
+
+        // 
+        function jiechen(num) {
+            if (num === 1) {
+                return 1;
+            }
+            return num * jiechen(num - 1);
+        }
+
+        function jiechen2(num, sum = 1) {
+            if (num === 1) {
+                return sum;
+            }
+            return jiechen2(num - 1, sum * num)
+        }
+
+        function f_test3(n) {
+            for (var i=1; i<n; i++) {
+                console.log(i + " => " + jiechen(i) + ", " + jiechen2(i));
+            }
+        }
+
+        f_test3(100);
+
+
+
+
+    
+    </script>
+</body>
+</html>
